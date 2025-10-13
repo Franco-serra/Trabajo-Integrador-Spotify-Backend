@@ -1,13 +1,24 @@
 const { Sequelize } = require('sequelize');
-const config = require('../config/config.json').development;
+require('dotenv').config();
 
+// Usar las mismas variables de entorno que tu database.js
 const sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
     {
-        host: config.host,
-        dialect: config.dialect
+        host: process.env.DB_HOST,
+        dialect: 'mysql',
+        dialectModule: require('mysql2'), // Important: usar mysql2
+        port: process.env.DB_PORT || 3306,
+        logging: process.env.NODE_ENV === 'development' ? console.log : false,
+        timezone: '-03:00',
+        pool: {
+            max: 10,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
     }
 );
 

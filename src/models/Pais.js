@@ -1,19 +1,19 @@
 module.exports = (sequelize, DataTypes) => {
-    const Genero = sequelize.define('Genero', {
-        genero_id: {
+    const Pais = sequelize.define('Pais', {
+        pais_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        nombre_genero: {
+        nombre_pais: {
             type: DataTypes.STRING(100),
             allowNull: false,
             unique: true
         }
     }, {
-        tableName: 'genero',
+        tableName: 'pais',
         timestamps: false
     });
 
-    return Genero;
+    return Pais;
 };
