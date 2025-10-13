@@ -1,14 +1,9 @@
-/**
- * Configuración principal de la aplicación Express
- * Los estudiantes deben completar la configuración de middlewares y rutas
- */
-
 require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
 const db = require("./config/database"); // Si usas conexión directa MySQL
 const { sequelize } = require("./models"); // Conexión Sequelize
-
+const artistaRoutes = require('./routes/artistas');
 // TODO: Importar las rutas (las agregaremos después)
 // const usuariosRoutes = require('./routes/usuarios');
 // const playlistsRoutes = require('./routes/playlists');
@@ -25,7 +20,7 @@ app.use(cors({
 }));
 
 // TODO: Configurar rutas
-// app.use('/api/v1/usuarios', usuariosRoutes);
+app.use('/api/v1/artistas', artistaRoutes);
 // app.use('/api/v1/playlists', playlistsRoutes);
 
 // Ruta de prueba del servidor

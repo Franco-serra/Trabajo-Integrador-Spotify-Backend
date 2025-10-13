@@ -55,7 +55,7 @@ POST {{baseUrl}}/artistas
 Content-Type: {{json}}
 
 {
-  "nombre": "Fito Paez",
+  "nombre_artista": "Fito Paez",
   "imagen_url": "https://cdn.example.com/fito.jpg"
 }
 
