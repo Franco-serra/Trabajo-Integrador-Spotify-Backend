@@ -20,11 +20,11 @@ const initializeDatabase = async () => {
     console.log('✅ Conexión a MySQL establecida correctamente');
     
     // Sincronizar modelos (sin forzar para no perder datos)
-    await sequelize.sync({ 
-      force: false, // ¡CUIDADO: true elimina todas las tablas!
-      alter: false  // ¡CUIDADO: true modifica tablas existentes
-    });
-    console.log('✅ Modelos sincronizados con la base de datos');
+    // await sequelize.sync({ 
+    //   force: false, 
+    //   alter: false  
+    // });
+    // console.log('✅ Modelos sincronizados con la base de datos');
     
     // Mostrar información de la BD
     console.log(`🗄️  Base de datos: ${sequelize.config.database}`);

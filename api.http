@@ -25,8 +25,8 @@ POST {{baseUrl}}/usuarios
 Content-Type: {{json}}
 
 {
-  "password": "Secr3t0!",
-  "fecha_nac": "1995-05-20"
+  "contrasenia_hash": "Secr3t0!",
+  "fecha_nacimiento": "1995-05-20"
 }
 
 ### Listar usuarios

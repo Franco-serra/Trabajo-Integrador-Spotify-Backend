@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
+        fecha_ult_mod_password: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
         email: {
             type: DataTypes.STRING(100),
             allowNull: false,
@@ -44,8 +48,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         }
     }, {
-        tableName: 'usuario',
-        timestamps: false
+        tableName: 'usuarios',  // ← CAMBIA A 'usuarios' (plural)
+        timestamps: false,
+        freezeTableName: true
     });
 
     return Usuario;
