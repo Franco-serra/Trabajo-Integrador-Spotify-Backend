@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'pais',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     });
 
     return Pais;

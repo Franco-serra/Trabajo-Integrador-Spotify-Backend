@@ -39,7 +39,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'datos_pago_usuario',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     });
 
     return DatosPagoUsuario;

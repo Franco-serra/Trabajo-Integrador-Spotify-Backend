@@ -26,12 +26,14 @@ const getArtistaById = async (req, res) => {
     try {
         const { id } = req.params;
         const artista = await Artista.findByPk(id, {
-            include: [
-                {
-                    model: Album,
-                    include: [Cancion]
-                }
-            ]
+            // SI SE UTILIZAN ESTAS LINEAS DE CODIGO COMENTADAS, EL ENDPOINT AL EJECUTARSE MOSTRARA LOS ALBUMES
+            // DE CADA ARTISTA.
+            // include: [
+            //     {
+            //         model: Album,
+            //         include: [Cancion]     
+            //     }
+            // ]
         });
 
         if (!artista) {

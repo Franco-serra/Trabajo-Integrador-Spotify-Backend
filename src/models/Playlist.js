@@ -34,7 +34,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'playlist',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     });
 
     return Playlist;

@@ -15,18 +15,11 @@ const initializeDatabase = async () => {
     // TODO: Conectar y sincronizar la base de datos
     console.log('🔄 Conectando a la base de datos...');
     
-    // Autenticar conexión
+
     await sequelize.authenticate();
     console.log('✅ Conexión a MySQL establecida correctamente');
     
-    // Sincronizar modelos (sin forzar para no perder datos)
-    // await sequelize.sync({ 
-    //   force: false, 
-    //   alter: false  
-    // });
-    // console.log('✅ Modelos sincronizados con la base de datos');
-    
-    // Mostrar información de la BD
+
     console.log(`🗄️  Base de datos: ${sequelize.config.database}`);
     console.log(`🏠 Host: ${sequelize.config.host}`);
     console.log(`🔌 Dialecto: ${sequelize.getDialect()}`);

@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         tableName: 'playlist_cancion',
         timestamps: false,
+        freezeTableName: true,
         indexes: [
             {
                 unique: true,

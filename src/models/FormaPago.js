@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'forma_pago',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     });
 
     return FormaPago;

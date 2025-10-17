@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', getAllArtistas);
 
-router.get('/paginados', getArtistasPaginados);
+router.get('/', getArtistasPaginados);
 
 router.get('/:id', getArtistaById);
 

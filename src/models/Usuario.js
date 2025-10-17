@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         }
     }, {
-        tableName: 'usuarios',  // ← CAMBIA A 'usuarios' (plural)
+        tableName: 'usuarios',  
         timestamps: false,
         freezeTableName: true
     });

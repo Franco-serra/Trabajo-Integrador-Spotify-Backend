@@ -30,7 +30,7 @@ Content-Type: {{json}}
 }
 
 ### Listar usuarios
-GET {{baseUrl}}/usuarios?page=1&limit=20
+GET {{baseUrl}}/usuarios?page=1&limit=10
 
 ### Obtener usuario por ID
 GET {{baseUrl}}/usuarios/1
@@ -59,9 +59,16 @@ Content-Type: {{json}}
   "imagen_url": "https://cdn.example.com/fito.jpg"
 }
 
-### Listar artistas
+### Listar artistas 
 GET {{baseUrl}}/artistas
 
+### Artistas por ID
+
+GET {{baseUrl}}/artistas/1
+
+### Artistas por paginacion
+
+GET {{baseUrl}}/artistas?page=1&limit=10
 
 ### ==========================
 ### ÁLBUMES

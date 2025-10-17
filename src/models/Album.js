@@ -28,7 +28,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'album',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     });
 
     return Album;

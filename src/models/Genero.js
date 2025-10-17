@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'genero',
-        timestamps: false
+        timestamps: false,
+        freezeTableName: true
     });
 
     return Genero;
