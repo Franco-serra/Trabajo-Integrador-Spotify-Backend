@@ -88,8 +88,29 @@ const getArtistasPaginados = async (req, res) => {
     }
 };
 
+
+const createArtista = async (req, res) => {
+    try {
+        const { nombre_artista, imagen } = req.body;
+        const nuevoArtista = await Artista.create({ nombre_artista, imagen });
+
+        res.status(201).json({
+            success: true,
+            data: nuevoArtista
+        });
+        
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: "Error creando artista",
+            details: error.message
+        });
+    }
+};
+
 module.exports = {
     getAllArtistas,
     getArtistaById,
-    getArtistasPaginados
+    getArtistasPaginados,
+    createArtista
 };

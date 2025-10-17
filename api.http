@@ -30,7 +30,7 @@ Content-Type: {{json}}
 }
 
 ### Listar usuarios
-GET {{baseUrl}}/usuarios?page=1&limit=10
+GET {{baseUrl}}/usuarios?page=1&limit=20
 
 ### Obtener usuario por ID
 GET {{baseUrl}}/usuarios/1
@@ -47,16 +47,30 @@ Content-Type: {{json}}
 GET {{baseUrl}}/usuarios/password-vencidas
 
 
+### Eliminar usuario por ID
+DELETE {{baseUrl}}/usuarios/20
 ### ==========================
 ### ARTISTAS
 ### ==========================
 # Crear artista
+### ESTE DA ERROR PORQUE YA EXISTE UN ARTISTA CON ESE NOMBRE
 POST {{baseUrl}}/artistas
 Content-Type: {{json}}
 
 {
   "nombre_artista": "Fito Paez",
-  "imagen_url": "https://cdn.example.com/fito.jpg"
+  "imagen": "https://cdn.example.com/fito.jpg"
+}
+
+### Crear artista 
+### ESTE NO FUE CREADO ANTES, ASI QUE DEBERIA ANDAR, AGUANTE PAVAROTTI
+
+POST {{baseUrl}}/artistas
+Content-Type: {{json}}
+
+{
+  "nombre_artista": "Duki",
+  "imagen": "https://cdn.example.com/duki.jpg"
 }
 
 ### Listar artistas 
@@ -64,11 +78,11 @@ GET {{baseUrl}}/artistas
 
 ### Artistas por ID
 
-GET {{baseUrl}}/artistas/1
+GET {{baseUrl}}/artistas/52
 
 ### Artistas por paginacion
 
-GET {{baseUrl}}/artistas?page=1&limit=10
+GET {{baseUrl}}/artistas/paginados?page=1&limit=1
 
 ### ==========================
 ### ÁLBUMES

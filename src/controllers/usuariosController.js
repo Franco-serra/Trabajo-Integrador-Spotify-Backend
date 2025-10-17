@@ -229,10 +229,43 @@ const getUserPasswordVencida = async (req, res) => {
     }
 };
 
+const deleteUser = async (req, res) => {
+    // Lógica para eliminar un usuario
+    const { id } = req.params;
+
+    try {
+        const usuario = await Usuario.findByPk(id);
+        if (!usuario) {
+            return res.status(404).json({
+                success: false,
+                error: "Usuario no encontrado"
+            });
+        }
+                await usuario.destroy();
+
+        res.status(200).json({
+            success: true,
+            message: "Usuario eliminado correctamente",
+            data: {
+                id: usuario.id,
+                nombre: usuario.nombre 
+            }})
+} catch (error) {
+        res.status(500).json({
+            success: false,
+            error: "Error eliminando usuario",
+            error: error.message
+        });
+    }
+}
+
+
+
 module.exports = {
     createUser,
     getAllUsers,
     getUserById,
     updateUserPass,
-    getUserPasswordVencida
+    getUserPasswordVencida,
+    deleteUser
 }

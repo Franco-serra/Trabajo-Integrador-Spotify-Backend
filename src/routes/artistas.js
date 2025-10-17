@@ -2,14 +2,17 @@ const express = require('express');
 const {
     getAllArtistas,
     getArtistaById,
-    getArtistasPaginados
+    getArtistasPaginados,
+    createArtista
 } = require('../controllers/artistasController');
 
 const router = express.Router();
 
+router.get('/paginados', getArtistasPaginados);
+
 router.get('/', getAllArtistas);
 
-router.get('/', getArtistasPaginados);
+router.post('/', createArtista);
 
 router.get('/:id', getArtistaById);
 
