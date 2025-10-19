@@ -46,10 +46,17 @@ module.exports = (sequelize, DataTypes) => {
         contrasenia_hash: {
             type: DataTypes.STRING(255),
             allowNull: false
+        },
+        
+        estado: {
+            type: DataTypes.ENUM('activo', 'inactivo', 'eliminado'),
+            allowNull: false,
+            defaultValue: 'activo'
         }
+        
     }, {
         tableName: 'usuarios',  
-        timestamps: false,
+        timestamps: false,       
         freezeTableName: true
     });
 

@@ -35,6 +35,7 @@ GET {{baseUrl}}/usuarios?page=1&limit=20
 ### Obtener usuario por ID
 GET {{baseUrl}}/usuarios/1
 
+
 ### Actualizar usuario (cambio de password → actualiza fecha_ult_mod_password)
 PUT {{baseUrl}}/usuarios/1
 Content-Type: {{json}}
@@ -48,7 +49,11 @@ GET {{baseUrl}}/usuarios/password-vencidas
 
 
 ### Eliminar usuario por ID
-DELETE {{baseUrl}}/usuarios/20
+DELETE {{baseUrl}}/usuarios/21
+
+### Restaurar usuario eliminado por ID
+PUT {{baseUrl}}/usuarios/restore/21
+
 ### ==========================
 ### ARTISTAS
 ### ==========================

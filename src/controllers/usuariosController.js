@@ -71,6 +71,9 @@ const getAllUsers = async (req, res) => {
         const offset = (page - 1) * limit;
 
         const { count, rows: usuarios } = await Usuario.findAndCountAll({
+            where: {
+                estado: 'activo'  // ← FILTRO PARA SOLO USUARIOS ACTIVOS
+            },
             limit,
             offset,
             order: [['nombre_completo', 'ASC']],
@@ -100,7 +103,11 @@ const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const usuario = await Usuario.findByPk(id, {
+        const usuario = await Usuario.findOne({
+            where: { 
+                usuario_id: id,      
+                estado: 'activo'     
+            },
             attributes: { 
                 exclude: ['contrasenia_hash']
             }
@@ -109,23 +116,21 @@ const getUserById = async (req, res) => {
         if (!usuario) {
             return res.status(404).json({
                 success: false,
-                error: "Usuario no encontrado"
+                error: "Usuario no encontrado o eliminado"
             });
         }
 
-        res.json({
+        res.status(200).json({
             success: true,
             data: usuario
         });
-
     } catch (error) {
         res.status(500).json({
             success: false,
-            error: "Error obteniendo usuario por id",
-            details: error.message
+            error: "Error obteniendo usuario: " + error.message
         });
     }
-};
+}
 
 const updateUserPass = async (req, res) => {
     try {
@@ -230,7 +235,6 @@ const getUserPasswordVencida = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-    // Lógica para eliminar un usuario
     const { id } = req.params;
 
     try {
@@ -241,25 +245,56 @@ const deleteUser = async (req, res) => {
                 error: "Usuario no encontrado"
             });
         }
-                await usuario.destroy();
+
+        await usuario.update({ estado: 'eliminado' });
 
         res.status(200).json({
             success: true,
-            message: "Usuario eliminado correctamente",
+            message: "Usuario marcado como eliminado",
             data: {
-                id: usuario.id,
-                nombre: usuario.nombre 
-            }})
-} catch (error) {
+                id: usuario.usuario_id,
+                nombre: usuario.nombre_completo,
+                estado: 'eliminado'
+            }
+        });
+    } catch (error) {
         res.status(500).json({
             success: false,
-            error: "Error eliminando usuario",
-            error: error.message
+            error: "Error eliminando usuario: " + error.message
         });
     }
 }
 
+const restoreUser = async (req, res) => {
+    const { id } = req.params;
 
+    try {
+        const usuario = await Usuario.findByPk(id);
+        if (!usuario) {
+            return res.status(404).json({
+                success: false,
+                error: "Usuario no encontrado"
+            });
+        }
+
+        await usuario.update({ estado: 'activo' });
+
+        res.status(200).json({
+            success: true,
+            message: "Usuario restaurado correctamente",
+            data: {
+                id: usuario.usuario_id,
+                nombre: usuario.nombre_completo,
+                estado: 'activo'
+            }
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: "Error restaurando usuario: " + error.message
+        });
+    }
+};
 
 module.exports = {
     createUser,
@@ -267,5 +302,6 @@ module.exports = {
     getUserById,
     updateUserPass,
     getUserPasswordVencida,
-    deleteUser
+    deleteUser,
+    restoreUser
 }

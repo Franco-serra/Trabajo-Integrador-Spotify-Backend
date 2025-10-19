@@ -6,7 +6,8 @@ const {
     getUserById,
     updateUserPass,
     getUserPasswordVencida,
-    deleteUser
+    deleteUser,
+    restoreUser
     } = require("../controllers/usuariosController");
 
 const router = express.Router();
@@ -17,6 +18,8 @@ router.get('/password-vencidas', getUserPasswordVencida);
 router.get('/:id', getUserById);
 router.put('/:id', updateUserPass)
 router.delete('/:id', deleteUser);
+router.put('/restore/:id', restoreUser);
+
 
 
 module.exports = router;
