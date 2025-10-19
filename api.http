@@ -29,10 +29,10 @@ Content-Type: {{json}}
   "fecha_nacimiento": "1995-05-20"
 }
 
-### Listar usuarios
+### Listar usuarios solo mostrara usuarios activos
 GET {{baseUrl}}/usuarios?page=1&limit=20
 
-### Obtener usuario por ID
+### Obtener usuario por ID solo mostrara usuarios activos
 GET {{baseUrl}}/usuarios/1
 
 
@@ -68,14 +68,14 @@ Content-Type: {{json}}
 }
 
 ### Crear artista 
-### ESTE NO FUE CREADO ANTES, ASI QUE DEBERIA ANDAR, AGUANTE PAVAROTTI
+### ESTE NO FUE CREADO ANTES, ASI QUE DEBERIA ANDAR, AGUANTE Hans Zimmer y Nobuo Uematsu
 
 POST {{baseUrl}}/artistas
 Content-Type: {{json}}
 
 {
-  "nombre_artista": "Duki",
-  "imagen": "https://cdn.example.com/duki.jpg"
+  "nombre_artista": "Hans Zimmer",
+  "imagen": "https://cdn.example.com/hans-zimmer.jpg"
 }
 
 ### Listar artistas 
@@ -83,31 +83,34 @@ GET {{baseUrl}}/artistas
 
 ### Artistas por ID
 
-GET {{baseUrl}}/artistas/52
+GET {{baseUrl}}/artistas/14
 
 ### Artistas por paginacion
 
-GET {{baseUrl}}/artistas/paginados?page=1&limit=1
+GET {{baseUrl}}/artistas/paginados?page=1&limit=10
 
 ### ==========================
 ### ÁLBUMES
 ### ==========================
-# Crear álbum (UNIQUE por artista+titulo)
+# Crear álbum (UNIQUE por artista+titulo)  AVISO IMPORTANTE: DISCOGRAFICA_ID SOLO EXISTEN APARTIR DE 227 HASTA 282
 POST {{baseUrl}}/albumes
 Content-Type: {{json}}
 
 {
-  "titulo": "El Amor Después Del Amor",
-  "id_artista": 1,
-  "id_discografica": 4,
-  "anio_publicacion": 1992
+  "nombre_album": "Evanescence - Fallen",
+  "artista_id": 52, // este es el id de Amy Lee (artista de Evanescence) fue creado en la seccion de artistas
+  "discografica_id": 231,
+  "imagen_portada": null,
+  "anio_lanzamiento": 2003
 }
+### Listar todos los álbumes
+GET {{baseUrl}}/albumes
 
-### Listar álbumes por artista
-GET {{baseUrl}}/albumes?artistaId=1
+### Listar álbumes por artista IMPORTANTE ESTE ENDPOINT FUNCIONARA CUANDO USE EL ENDPOINT POST Y DARLE UN ALBUM A AMY LEE
+GET {{baseUrl}}/albumes/artista/52 
 
 ### Canciones de un álbum
-GET {{baseUrl}}/albumes/1/canciones
+GET {{baseUrl}}/albumes/20/canciones
 
 
 ### ==========================

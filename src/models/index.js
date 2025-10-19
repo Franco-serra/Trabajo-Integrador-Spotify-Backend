@@ -53,7 +53,8 @@ Discografica.hasMany(Album, { foreignKey: 'discografica_id' });
 Album.belongsTo(Discografica, { foreignKey: 'discografica_id' });
 
 // Album - Cancion
-Album.hasMany(Cancion, { foreignKey: 'album_id' });
+Album.hasMany(Cancion, { foreignKey: 'album_id',
+    as: 'canciones' });
 Cancion.belongsTo(Album, { foreignKey: 'album_id' });
 
 // Cancion - Genero (Muchos a muchos)
