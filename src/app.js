@@ -6,6 +6,7 @@ const { sequelize } = require("./models"); // Conexión Sequelize
 const artistaRoutes = require('./routes/artistas');
 const usuariosRoutes = require('./routes/usuarios');
 const albumesRoutes = require('./routes/albumes');
+const cancionRoutes = require('./routes/canciones')
 // TODO: Importar las rutas (las agregaremos después)
 // const usuariosRoutes = require('./routes/usuarios');
 // const playlistsRoutes = require('./routes/playlists');
@@ -25,6 +26,7 @@ app.use(cors({
 app.use('/api/v1/artistas', artistaRoutes);
 app.use('/api/v1/usuarios', usuariosRoutes);
 app.use('/api/v1/albumes', albumesRoutes);
+app.use('/api/v1/canciones', cancionRoutes)
 
 // app.use('/api/v1/playlists', playlistsRoutes);
 

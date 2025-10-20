@@ -1,5 +1,5 @@
 const { get } = require('../app');
-const { Album, Artista } = require('../models');
+const { Album, Artista, Cancion } = require('../models');
 
 
 const createAlbum = async (req, res) => {
@@ -23,16 +23,14 @@ const createAlbum = async (req, res) => {
     } catch (error) {
         console.log('❌ ERROR:', error.name);
         
-        // Manejar error de nombre duplicado
         if (error.name === 'SequelizeUniqueConstraintError') {
-            return res.status(409).json({  // 409 Conflict
+            return res.status(409).json({  
                 success: false,
                 message: "Ya existe un álbum con ese nombre",
                 error: `El álbum '${error.errors[0].value}' ya existe en la base de datos`
             });
         }
-        
-        // Manejar error de foreign key
+
         if (error.name === 'SequelizeForeignKeyConstraintError') {
             return res.status(400).json({
                 success: false,
@@ -41,7 +39,6 @@ const createAlbum = async (req, res) => {
             });
         }
         
-        // Error genérico
         res.status(500).json({
             success: false,
             message: "Error al crear el álbum",
@@ -116,18 +113,48 @@ const getAlbumByArtistId = async (req, res) => {
 const getCancionesByAlbumId = async (req, res) => {
     try {       
         const { album_id } = req.params;
-        const canciones = await Cancion.findAll({
-            where: { album_id: album_id }
-        });
         
-        const album = await Album.findByPk(album_id);
-        if (!album) {
-            return res.status(404).json({ message: 'Álbum no encontrado' });
+        if (!album_id || isNaN(album_id)) {
+            return res.status(400).json({ 
+                message: 'ID de álbum inválido' 
+            });
         }
         
-        res.status(200).json(canciones);
+        const albumId = parseInt(album_id);
+        
+        // Buscar álbum con sus canciones incluidas
+        const album = await Album.findByPk(albumId, {
+            include: [{
+                model: Cancion,
+                as: 'canciones', // Ajusta según tu asociación
+                required: false // Para que devuelva el álbum incluso si no tiene canciones
+            }]
+        });
+        
+        if (!album) {
+            return res.status(404).json({ 
+                message: `Álbum con ID ${albumId} no encontrado` 
+            });
+        }
+        
+        res.status(200).json({
+            success: true,
+            album: {
+                id: album.id,
+                nombre: album.nombre,
+                artista: album.artista
+            },
+            canciones: album.canciones || [],
+            total: album.canciones ? album.canciones.length : 0
+        });
+        
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener las canciones del álbum', error });
+        console.error('Error:', error);
+        res.status(500).json({ 
+            success: false,
+            message: 'Error al obtener las canciones', 
+            error: error.message 
+        });
     }
 }
 

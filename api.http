@@ -98,7 +98,7 @@ Content-Type: {{json}}
 
 {
   "nombre_album": "Evanescence - Fallen",
-  "artista_id": 52, // este es el id de Amy Lee (artista de Evanescence) fue creado en la seccion de artistas
+  "artista_id": 52, // este es el id de Amy Lee (artista de Evanescence) fue creado desde el endpoint de artistas
   "discografica_id": 231,
   "imagen_portada": null,
   "anio_lanzamiento": 2003
@@ -109,8 +109,8 @@ GET {{baseUrl}}/albumes
 ### Listar álbumes por artista IMPORTANTE ESTE ENDPOINT FUNCIONARA CUANDO USE EL ENDPOINT POST Y DARLE UN ALBUM A AMY LEE
 GET {{baseUrl}}/albumes/artista/52 
 
-### Canciones de un álbum
-GET {{baseUrl}}/albumes/20/canciones
+### Canciones de un álbum IMPORTANTE ID DE ALBUMES APARTIR DEL 17 HASTA EL 39
+GET {{baseUrl}}/albumes/17/canciones
 
 
 ### ==========================
@@ -121,9 +121,9 @@ POST {{baseUrl}}/canciones
 Content-Type: {{json}}
 
 {
-  "titulo": "Mariposa Tecknicolor",
-  "duracion_seg": 255,
-  "id_album": 1
+  "nombre_cancion": "Mariposa Tecknicolor",
+  "duracion_min": 255,
+  "album_id": 29
 }
 
 ### Crear canción (ERROR: duracion en mm.ss)
@@ -131,24 +131,24 @@ POST {{baseUrl}}/canciones
 Content-Type: {{json}}
 
 {
-  "titulo": "DuracionMala",
-  "duracion_seg": 3.25,
-  "id_album": 1
+  "nombre_cancion": "DuracionMala",
+  "duracion_min": 3.25,
+  "album_id": 22
 }
 
 ### Listar canciones (filtros)
-GET {{baseUrl}}/canciones?genero=Pop&albumId=1
+GET {{baseUrl}}/canciones?genero=Rock&albumId=17
 
 ### Asociar género a canción
 POST {{baseUrl}}/canciones/1/generos
 Content-Type: {{json}}
 
 {
-  "id_genero": 3
+  "genero_id": 2
 }
 
 ### Quitar género de canción
-DELETE {{baseUrl}}/canciones/1/generos/3
+DELETE {{baseUrl}}/canciones/1/generos/2
 
 
 ### ==========================
