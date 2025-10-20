@@ -7,6 +7,7 @@ const artistaRoutes = require('./routes/artistas');
 const usuariosRoutes = require('./routes/usuarios');
 const albumesRoutes = require('./routes/albumes');
 const cancionRoutes = require('./routes/canciones')
+const generosRoutes = require('./routes/generos');
 // TODO: Importar las rutas (las agregaremos después)
 // const usuariosRoutes = require('./routes/usuarios');
 // const playlistsRoutes = require('./routes/playlists');
@@ -27,8 +28,7 @@ app.use('/api/v1/artistas', artistaRoutes);
 app.use('/api/v1/usuarios', usuariosRoutes);
 app.use('/api/v1/albumes', albumesRoutes);
 app.use('/api/v1/canciones', cancionRoutes)
-
-// app.use('/api/v1/playlists', playlistsRoutes);
+app.use('/api/v1/generos', generosRoutes );
 
 // Ruta de prueba del servidor
 app.get("/", (req, res) => {

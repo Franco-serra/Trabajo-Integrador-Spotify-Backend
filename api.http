@@ -159,7 +159,7 @@ POST {{baseUrl}}/generos
 Content-Type: {{json}}
 
 {
-  "nombre": "Pop"
+  "nombre": "Electronica"
 }
 
 ### Listar géneros
