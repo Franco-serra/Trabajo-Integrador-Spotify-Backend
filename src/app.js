@@ -3,14 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./config/database"); // Si usas conexión directa MySQL
 const { sequelize } = require("./models"); // Conexión Sequelize
-const artistaRoutes = require('./routes/artistas');
-const usuariosRoutes = require('./routes/usuarios');
-const albumesRoutes = require('./routes/albumes');
-const cancionRoutes = require('./routes/canciones')
-const generosRoutes = require('./routes/generos');
-const playlistsRoutes = require('./routes/playlists');
-const suscripcionesRoutes = require('./routes/suscripciones');
-const metodosPagoRoutes = require('./routes/metodos-pago');
+const router = require("./routes/index");
 // TODO: Importar las rutas (las agregaremos después)
 // const usuariosRoutes = require('./routes/usuarios');
 // const playlistsRoutes = require('./routes/playlists');
@@ -27,15 +20,17 @@ app.use(cors({
 }));
 
 // TODO: Configurar rutas
-app.use('/api/v1/artistas', artistaRoutes);
-app.use('/api/v1/usuarios', usuariosRoutes);
-app.use('/api/v1/albumes', albumesRoutes);
-app.use('/api/v1/canciones', cancionRoutes)
-app.use('/api/v1/generos', generosRoutes );
-app.use('/api/v1/playlists', playlistsRoutes);
-app.use('/api/v1/suscripciones', suscripcionesRoutes);
-app.use('/api/v1/metodos-pago', metodosPagoRoutes); 
+// app.use('/api/v1/artistas', artistaRoutes);
+// app.use('/api/v1/usuarios', usuariosRoutes);
+// app.use('/api/v1/albumes', albumesRoutes);
+// app.use('/api/v1/canciones', cancionRoutes)
+// app.use('/api/v1/generos', generosRoutes );
+// app.use('/api/v1/playlists', playlistsRoutes);
+// app.use('/api/v1/suscripciones', suscripcionesRoutes);
+// app.use('/api/v1/metodos-pago', metodosPagoRoutes); 
 
+
+app.use('/', router);
 // Ruta de prueba del servidor
 app.get("/", (req, res) => {
   res.json({

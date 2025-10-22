@@ -1,36 +1,28 @@
-/**
- * Archivo principal de rutas
- * Los estudiantes deben importar y configurar todas las rutas aquí
- */
 
 const express = require("express");
 const router = express.Router();
 
 // TODO: Importar todas las rutas
-// const usuariosRoutes = require('./usuarios');
-// const artistasRoutes = require('./artistas');
-// const albumesRoutes = require('./albumes');
-// const cancionesRoutes = require('./canciones');
-// const generosRoutes = require('./generos');
-// const playlistsRoutes = require('./playlists');
-// const suscripcionesRoutes = require('./suscripciones');
-// const metodosPagoRoutes = require('./metodos-pago');
-// const pagosRoutes = require('./pagos');
-// const vistasRoutes = require('./vistas');
+const artistaRoutes = require('./artistas');
+const usuariosRoutes = require('./usuarios');
+const albumesRoutes = require('./albumes');
+const cancionRoutes = require('./canciones')
+const generosRoutes = require('./generos');
+const playlistsRoutes = require('./playlists');
+const suscripcionesRoutes = require('./suscripciones');
+const metodosPagoRoutes = require('./metodos-pago');
 
 // TODO: Configurar las rutas con sus prefijos
-// router.use('/usuarios', usuariosRoutes);
-// router.use('/artistas', artistasRoutes);
-// router.use('/albumes', albumesRoutes);
-// router.use('/canciones', cancionesRoutes);
-// router.use('/generos', generosRoutes);
-// router.use('/playlists', playlistsRoutes);
-// router.use('/suscripciones', suscripcionesRoutes);
-// router.use('/metodos-pago', metodosPagoRoutes);
-// router.use('/pagos', pagosRoutes);
-// router.use('/vistas', vistasRoutes);
+router.use('/api/v1/artistas', artistaRoutes);
+router.use('/api/v1/usuarios', usuariosRoutes);
+router.use('/api/v1/albumes', albumesRoutes);
+router.use('/api/v1/canciones', cancionRoutes)
+router.use('/api/v1/generos', generosRoutes );
+router.use('/api/v1/playlists', playlistsRoutes);
+router.use('/api/v1/suscripciones', suscripcionesRoutes);
+router.use('/api/v1/metodos-pago', metodosPagoRoutes);
 
-// Ruta de prueba
+
 router.get("/", (req, res) => {
   res.json({
     message: "API Spotify - Backend funcionando correctamente",
