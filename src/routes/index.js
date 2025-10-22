@@ -11,6 +11,7 @@ const generosRoutes = require('./generos');
 const playlistsRoutes = require('./playlists');
 const suscripcionesRoutes = require('./suscripciones');
 const metodosPagoRoutes = require('./metodos-pago');
+const pagosRoutes = require('./pagos');
 
 // TODO: Configurar las rutas con sus prefijos
 router.use('/api/v1/artistas', artistaRoutes);
@@ -21,6 +22,7 @@ router.use('/api/v1/generos', generosRoutes );
 router.use('/api/v1/playlists', playlistsRoutes);
 router.use('/api/v1/suscripciones', suscripcionesRoutes);
 router.use('/api/v1/metodos-pago', metodosPagoRoutes);
+router.use('/api/v1/pagos', pagosRoutes);
 
 
 router.get("/", (req, res) => {

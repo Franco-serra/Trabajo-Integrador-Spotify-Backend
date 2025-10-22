@@ -85,6 +85,9 @@ DatosPagoUsuario.belongsTo(Usuario, { foreignKey: 'usuario_id' });
 FormaPago.hasMany(DatosPagoUsuario, { foreignKey: 'forma_pago_id' });
 DatosPagoUsuario.belongsTo(FormaPago, { foreignKey: 'forma_pago_id' });
 
+Usuario.hasMany(Pago, { foreignKey: 'usuario_id',as: 'Pagos'});
+Pago.belongsTo(Usuario, { foreignKey: 'usuario_id',as: 'Usuario'});
+
 // FormaPago - Pago
 FormaPago.hasMany(Pago, { foreignKey: 'forma_pago_id' });
 Pago.belongsTo(FormaPago, { foreignKey: 'forma_pago_id' });

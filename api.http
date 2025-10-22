@@ -212,13 +212,18 @@ Content-Type: {{json}}
 ### ==========================
 ### SUSCRIPCIONES
 ### ==========================
-# Crear suscripción (fecha_renovacion > fecha_inicio)
+### Listar tipos de usuario (suscripciones disponibles)
+GET {{baseUrl}}/suscripciones/1
+
+
+### Crear suscripción (fecha_renovacion > fecha_inicio)
+
 POST {{baseUrl}}/suscripciones
 Content-Type: {{json}}
 
 {
-  "usuario_id": 5,
-  "tipo_usuario_id": 3,
+  "usuario_id": 21,
+  "tipo_usuario_id": 1,
   "fecha_inicio": "2025-10-01T00:00:00Z",
   "fecha_renovacion": "2025-11-01T00:00:00Z"
 }
@@ -252,7 +257,7 @@ Content-Type: {{json}}
 }
 
 ### Listar métodos de pago por usuario
-GET {{baseUrl}}/metodos-pago?usuarioId=1
+GET {{baseUrl}}/metodos-pago?usuarioId=3
 
 
 ### ==========================
@@ -263,11 +268,11 @@ POST {{baseUrl}}/pagos
 Content-Type: {{json}}
 
 {
-  "id_usuario": 1,
-  "id_suscripcion": 1,
-  "id_metodo_pago": 1,
+  "id_usuario": 2,
+  "id_suscripcion": 3,
+  "id_metodo_pago": 3,
   "importe": 100,
-  "fecha_pago": "2025-10-01T00:00:00Z"
+  "fecha_pago": "2025-10-21T00:00:00Z"
 }
 
 ### Listar pagos por usuario y rango

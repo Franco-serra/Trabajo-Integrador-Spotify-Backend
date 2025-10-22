@@ -1,4 +1,71 @@
-const { Suscripcion } = require('../models');
+const { Suscripcion, Usuario, TipoUsuario} = require('../models');
+
+
+const obtenerSuscripcionPorId = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) {
+            return res.status(400).json({
+                error: 'El parámetro id es obligatorio'
+            });
+        }
+
+        const suscripcionId = parseInt(id);
+        if (isNaN(suscripcionId)) {
+            return res.status(400).json({
+                error: 'El id debe ser un número válido'
+            });
+        }
+
+        // Versión sin includes para evitar errores de columnas
+        const suscripcion = await Suscripcion.findByPk(suscripcionId);
+
+        if (!suscripcion) {
+            return res.status(404).json({
+                error: 'Suscripción no encontrada'
+            });
+        }
+
+        // Buscar información relacionada por separado
+        const [usuario, tipoUsuario] = await Promise.all([
+            Usuario.findByPk(suscripcion.usuario_id),
+            TipoUsuario.findByPk(suscripcion.tipo_usuario_id)
+        ]);
+
+        // Formatear la respuesta con solo los campos que existen
+        const suscripcionFormateada = {
+            suscripcion_id: suscripcion.suscripcion_id,
+            fecha_inicio: suscripcion.fecha_inicio,
+            fecha_renovacion: suscripcion.fecha_renovacion,
+            fecha_fin: suscripcion.fecha_fin,
+            estado: suscripcion.estado,
+            usuario: usuario ? {
+                usuario_id: usuario.usuario_id,
+                nombre_completo: usuario.nombre_completo,
+                email: usuario.email,
+                estado: usuario.estado
+            } : null,
+            tipo_usuario: tipoUsuario ? {
+                tipo_usuario_id: tipoUsuario.tipo_usuario_id,
+                nombre_tipo: tipoUsuario.nombre_tipo // Solo usar campos que existen
+            } : null
+        };
+
+        res.status(200).json({
+            message: 'Suscripción encontrada',
+            suscripcion: suscripcionFormateada
+        });
+
+    } catch (error) {
+        console.error('Error al obtener suscripción:', error);
+        res.status(500).json({
+            error: 'Error interno del servidor al obtener la suscripción',
+            details: error.message
+        });
+    }
+};
+
 
 const crearSuscripcion = async(req, res) => {
     try {
@@ -12,11 +79,11 @@ const crearSuscripcion = async(req, res) => {
             });
         }
 
-        // Convertir fechas a objetos Date
+
         const fechaInicio = new Date(fecha_inicio);
         const fechaRenovacion = fecha_renovacion ? new Date(fecha_renovacion) : null;
 
-        // Validar formato de fechas
+
         if (isNaN(fechaInicio.getTime())) {
             return res.status(400).json({
                 success: false,
@@ -33,7 +100,7 @@ const crearSuscripcion = async(req, res) => {
             });
         }
 
-        // Validar que fecha_renovacion sea posterior a fecha_inicio
+
         if (fechaRenovacion && fechaRenovacion <= fechaInicio) {
             return res.status(400).json({
                 success: false,
@@ -46,7 +113,7 @@ const crearSuscripcion = async(req, res) => {
             });
         }
 
-        // Verificar si el usuario ya tiene una suscripción activa
+
         const suscripcionExistente = await Suscripcion.findOne({
             where: {
                 usuario_id,
@@ -62,7 +129,7 @@ const crearSuscripcion = async(req, res) => {
             });
         }
 
-        // Crear la suscripción
+
         const nuevaSuscripcion = await Suscripcion.create({
             usuario_id,
             tipo_usuario_id,
@@ -87,5 +154,6 @@ const crearSuscripcion = async(req, res) => {
 };
 
     module.exports = {
-        crearSuscripcion
+        crearSuscripcion,
+        obtenerSuscripcionPorId
     };
