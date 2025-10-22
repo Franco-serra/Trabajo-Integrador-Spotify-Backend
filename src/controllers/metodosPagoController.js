@@ -100,14 +100,12 @@ const listarMetodosPago = async (req, res) => {
     try {
         const { usuarioId } = req.query;
 
-        // Validar que se proporcionó el usuarioId
         if (!usuarioId) {
             return res.status(400).json({
                 error: 'El parámetro usuarioId es obligatorio'
             });
         }
 
-        // Validar que usuarioId es un número válido
         const usuarioIdNum = parseInt(usuarioId);
         if (isNaN(usuarioIdNum)) {
             return res.status(400).json({
@@ -115,7 +113,6 @@ const listarMetodosPago = async (req, res) => {
             });
         }
 
-        // Buscar métodos de pago del usuario
         const metodosPago = await DatosPagoUsuario.findAll({
             where: {
                 usuario_id: usuarioIdNum
@@ -133,10 +130,10 @@ const listarMetodosPago = async (req, res) => {
                 'banco_codigo',
                 'cbu'
             ],
-            order: [['datos_pago_id', 'DESC']] // Ordenar por el más reciente primero
+            order: [['datos_pago_id', 'DESC']] 
         });
 
-        // Formatear la respuesta
+
         const metodosFormateados = metodosPago.map(metodo => ({
             datos_pago_id: metodo.datos_pago_id,
             usuario_id: metodo.usuario_id,

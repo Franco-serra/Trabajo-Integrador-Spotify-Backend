@@ -122,12 +122,11 @@ const getCancionesByAlbumId = async (req, res) => {
         
         const albumId = parseInt(album_id);
         
-        // Buscar álbum con sus canciones incluidas
         const album = await Album.findByPk(albumId, {
             include: [{
                 model: Cancion,
-                as: 'canciones', // Ajusta según tu asociación
-                required: false // Para que devuelva el álbum incluso si no tiene canciones
+                as: 'canciones', 
+                required: false 
             }]
         });
         

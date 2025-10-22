@@ -1,6 +1,5 @@
 const { Artista, Album, Cancion } = require('../models');
 
-// Obtener todos los artistas
 const getAllArtistas = async (req, res) => {
     try {
         const artistas = await Artista.findAll({
@@ -21,7 +20,6 @@ const getAllArtistas = async (req, res) => {
     }
 };
 
-// Obtener artista por ID
 const getArtistaById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -56,7 +54,6 @@ const getArtistaById = async (req, res) => {
     }
 };
 
-// Obtener artistas con paginación
 const getArtistasPaginados = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;

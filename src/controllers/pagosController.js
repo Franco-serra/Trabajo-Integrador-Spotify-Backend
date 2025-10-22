@@ -5,21 +5,20 @@ const registrarPago = async (req, res) => {
     try {
         const { id_usuario, id_suscripcion, id_metodo_pago, importe, fecha_pago } = req.body;
 
-        // Validaciones básicas
+
         if (!id_usuario || !id_suscripcion || !id_metodo_pago || !importe || !fecha_pago) {
             return res.status(400).json({
                 error: 'Todos los campos son obligatorios: id_usuario, id_suscripcion, id_metodo_pago, importe, fecha_pago'
             });
         }
 
-        // Validar que el importe sea positivo
         if (importe <= 0) {
             return res.status(400).json({
                 error: 'El importe debe ser mayor a 0'
             });
         }
 
-        // Verificar que el usuario existe
+
         const usuario = await Usuario.findByPk(id_usuario);
         if (!usuario) {
             return res.status(404).json({
@@ -27,7 +26,7 @@ const registrarPago = async (req, res) => {
             });
         }
 
-        // Verificar que la suscripción existe
+
         const suscripcion = await Suscripcion.findByPk(id_suscripcion);
         if (!suscripcion) {
             return res.status(404).json({
@@ -35,7 +34,7 @@ const registrarPago = async (req, res) => {
             });
         }
 
-        // Verificar que el método de pago existe y pertenece al usuario
+
         const metodoPago = await DatosPagoUsuario.findOne({
             where: {
                 datos_pago_id: id_metodo_pago,
@@ -53,20 +52,20 @@ const registrarPago = async (req, res) => {
             });
         }
 
-        // Verificar que la suscripción pertenece al usuario
+
         if (suscripcion.usuario_id !== id_usuario.toString()) {
             return res.status(400).json({
                 error: 'La suscripción no pertenece al usuario especificado'
             });
         }
 
-        // Crear el pago
+
         const nuevoPago = await Pago.create({
             fecha_pago: new Date(fecha_pago),
             importe: importe,
-            usuario_id: id_usuario.toString(), // Convertir a string según el modelo
+            usuario_id: id_usuario.toString(), 
             forma_pago_id: id_metodo_pago,
-            estado: 'completado' // Por defecto según el modelo
+            estado: 'completado' 
         });
 
         await Suscripcion.update(
@@ -99,14 +98,13 @@ const listarPagos = async (req, res) => {
     try {
         const { usuarioId, desde, hasta } = req.query;
 
-        // Validar que se proporcione el usuarioId
         if (!usuarioId) {
             return res.status(400).json({
                 error: 'El parámetro usuarioId es obligatorio'
             });
         }
 
-        // Validar formato de usuarioId
+
         const usuarioIdNum = parseInt(usuarioId);
         if (isNaN(usuarioIdNum)) {
             return res.status(400).json({
@@ -114,7 +112,7 @@ const listarPagos = async (req, res) => {
             });
         }
 
-        // Verificar que el usuario existe
+
         const usuario = await Usuario.findByPk(usuarioIdNum);
         if (!usuario) {
             return res.status(404).json({
@@ -122,12 +120,12 @@ const listarPagos = async (req, res) => {
             });
         }
 
-        // Construir condiciones de consulta
+
         const whereConditions = {
             usuario_id: usuarioIdNum.toString()
         };
 
-        // Agregar filtro de rango de fechas si se proporciona
+
         if (desde || hasta) {
             whereConditions.fecha_pago = {};
             
@@ -153,25 +151,25 @@ const listarPagos = async (req, res) => {
             }
         }
 
-        // Consultar pagos con los alias correctos
+
         const pagos = await Pago.findAll({
             where: whereConditions,
             include: [
                 {
                     model: FormaPago,
-                    as: 'FormaPago', // Especificar el alias
+                    as: 'FormaPago', 
                     attributes: ['forma_pago_id', 'nombre_forma_pago']
                 },
                 {
                     model: Usuario,
-                    as: 'Usuario', // Especificar el alias
+                    as: 'Usuario', 
                     attributes: ['usuario_id', 'nombre_completo', 'email']
                 }
             ],
             order: [['fecha_pago', 'DESC']]
         });
 
-        // Formatear respuesta
+
         const pagosFormateados = pagos.map(pago => ({
             pago_id: pago.pago_id,
             fecha_pago: pago.fecha_pago,
