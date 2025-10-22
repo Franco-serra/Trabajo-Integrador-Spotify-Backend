@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true
         },
         banco_codigo: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING(20), 
             allowNull: true
         },
         numero_tarjeta: {

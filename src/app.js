@@ -10,6 +10,7 @@ const cancionRoutes = require('./routes/canciones')
 const generosRoutes = require('./routes/generos');
 const playlistsRoutes = require('./routes/playlists');
 const suscripcionesRoutes = require('./routes/suscripciones');
+const metodosPagoRoutes = require('./routes/metodos-pago');
 // TODO: Importar las rutas (las agregaremos después)
 // const usuariosRoutes = require('./routes/usuarios');
 // const playlistsRoutes = require('./routes/playlists');
@@ -33,6 +34,7 @@ app.use('/api/v1/canciones', cancionRoutes)
 app.use('/api/v1/generos', generosRoutes );
 app.use('/api/v1/playlists', playlistsRoutes);
 app.use('/api/v1/suscripciones', suscripcionesRoutes);
+app.use('/api/v1/metodos-pago', metodosPagoRoutes); 
 
 // Ruta de prueba del servidor
 app.get("/", (req, res) => {

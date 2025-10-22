@@ -243,9 +243,9 @@ POST {{baseUrl}}/metodos-pago
 Content-Type: {{json}}
 
 {
-  "id_usuario": 1,
+  "usuario_id": 1,
   "tipo_forma_pago": "Tarjeta de crédito",
-  "nro_tarjeta": "4519000000001234",
+  "numero_tarjeta": "4519000000001234",
   "mes_caduca": 12,
   "anio_caduca": 2027,
   "banco_codigo": "BANK01"
