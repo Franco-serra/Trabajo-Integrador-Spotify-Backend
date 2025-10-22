@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 
 const createUser = async (req, res) => {
     try {
-        const { 
+        const {
+            nombre_completo,
             email, 
             password, 
             fecha_nac, 
@@ -34,7 +35,7 @@ const createUser = async (req, res) => {
         const contraseniaHash = await bcrypt.hash(password, saltRounds);
 
         const nuevoUsuario = await Usuario.create({
-            nombre_completo: email.split('@')[0], 
+            nombre_completo: nombre_completo, 
             email: email,
             contrasenia_hash: contraseniaHash,    
             fecha_nacimiento: fecha_nac,          

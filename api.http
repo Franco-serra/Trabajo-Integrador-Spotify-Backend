@@ -11,12 +11,13 @@ POST {{baseUrl}}/usuarios
 Content-Type: {{json}}
 
 {
-  "email": "ana.garcia@example.com",
+  "nombre_completo": "Ana Garcia 2",
+  "email": "ana.garcia2@example.com",
   "password": "Secr3t0!",
   "fecha_nac": "1995-05-20",
-  "sexo": "F",
+  "sexo": "O",
   "cp": "4600",
-  "id_pais": 10,
+  "id_pais": 1,
   "tipo_usuario_actual": 1
 }
 
@@ -33,7 +34,7 @@ Content-Type: {{json}}
 GET {{baseUrl}}/usuarios?page=1&limit=20
 
 ### Obtener usuario por ID solo mostrara usuarios activos
-GET {{baseUrl}}/usuarios/1
+GET {{baseUrl}}/usuarios/21
 
 
 ### Actualizar usuario (cambio de password → actualiza fecha_ult_mod_password)
@@ -74,8 +75,8 @@ POST {{baseUrl}}/artistas
 Content-Type: {{json}}
 
 {
-  "nombre_artista": "Hans Zimmer",
-  "imagen": "https://cdn.example.com/hans-zimmer.jpg"
+  "nombre_artista": "Nobuo Uematsu",
+  "imagen": null  
 }
 
 ### Listar artistas 
@@ -97,19 +98,19 @@ POST {{baseUrl}}/albumes
 Content-Type: {{json}}
 
 {
-  "nombre_album": "Evanescence - Fallen",
-  "artista_id": 52, // este es el id de Amy Lee (artista de Evanescence) fue creado desde el endpoint de artistas
+  "nombre_album": "Final Fantasy VII: Advent Children Original Soundtrack",
+  "artista_id": 53, // este es el id de nobuo uematsu tiene que ser creado desde el endpoint de artistas
   "discografica_id": 231,
   "imagen_portada": null,
-  "anio_lanzamiento": 2003
+  "anio_lanzamiento": 1997
 }
 ### Listar todos los álbumes
 GET {{baseUrl}}/albumes
 
-### Listar álbumes por artista IMPORTANTE ESTE ENDPOINT FUNCIONARA CUANDO USE EL ENDPOINT POST Y DARLE UN ALBUM A AMY LEE
-GET {{baseUrl}}/albumes/artista/52 
+### Listar álbumes por artista IMPORTANTE ESTE ENDPOINT FUNCIONARA CUANDO USE EL ENDPOINT POST Y DARLE UN ALBUM A Nobuo Uematsu QUE DEBERIA TENER ID 53
+GET {{baseUrl}}/albumes/artista/53 
 
-### Canciones de un álbum IMPORTANTE ID DE ALBUMES APARTIR DEL 17 HASTA EL 39
+### Canciones de un álbum IMPORTANTE ID DE ALBUMES APARTIR DEL 17 HASTA EL 39. PK === album_id
 GET {{baseUrl}}/albumes/17/canciones
 
 
@@ -121,8 +122,8 @@ POST {{baseUrl}}/canciones
 Content-Type: {{json}}
 
 {
-  "nombre_cancion": "Mariposa Tecknicolor",
-  "duracion_min": 255,
+  "nombre_cancion": "Clash on the Big Bridge",
+  "duracion_min": 235,
   "album_id": 29
 }
 
@@ -131,7 +132,7 @@ POST {{baseUrl}}/canciones
 Content-Type: {{json}}
 
 {
-  "nombre_cancion": "DuracionMala",
+  "nombre_cancion": "mala-duracion",
   "duracion_min": 3.25,
   "album_id": 22
 }
@@ -140,11 +141,11 @@ Content-Type: {{json}}
 GET {{baseUrl}}/canciones?genero=Rock&albumId=17
 
 ### Asociar género a canción
-POST {{baseUrl}}/canciones/1/generos
+POST {{baseUrl}}/canciones/146/generos 
 Content-Type: {{json}}
 
 {
-  "genero_id": 2
+  "genero_id": 12
 }
 
 ### Quitar género de canción
@@ -159,7 +160,7 @@ POST {{baseUrl}}/generos
 Content-Type: {{json}}
 
 {
-  "nombre": "Electronica"
+  "nombre": "Electro"
 }
 
 ### Listar géneros
@@ -174,33 +175,33 @@ POST {{baseUrl}}/playlists
 Content-Type: {{json}}
 
 {
-  "titulo": "Para correr",
-  "id_usuario": 1
+  "nombre_playlist": "para relajarse",
+  "usuario_id": 11
 }
 
 ### Agregar canción a playlist
-POST {{baseUrl}}/playlists/1/canciones
+POST {{baseUrl}}/playlists/23/canciones
 Content-Type: {{json}}
 
 {
-  "id_cancion": 1,
+  "cancion_id": 146,
   "orden": 1
 }
 
 ### Quitar canción de playlist
-DELETE {{baseUrl}}/playlists/1/canciones/1
+DELETE {{baseUrl}}/playlists/23/canciones/146
 
 ### Eliminar (soft-delete) playlist → debe enviar fecha_eliminada
-PUT {{baseUrl}}/playlists/1
+PUT {{baseUrl}}/playlists/22
 Content-Type: {{json}}
 
 {
   "estado": "eliminada",
-  "fecha_eliminada": "2025-10-02T10:00:00Z"
+  "fecha_eliminacion": "2025-11-10T00:50:00Z"
 }
 
 ### ERROR: soft-delete sin fecha
-PUT {{baseUrl}}/playlists/1
+PUT {{baseUrl}}/playlists/4
 Content-Type: {{json}}
 
 {
@@ -216,8 +217,8 @@ POST {{baseUrl}}/suscripciones
 Content-Type: {{json}}
 
 {
-  "id_usuario": 1,
-  "id_tipo_usuario": 1,
+  "usuario_id": 5,
+  "tipo_usuario_id": 3,
   "fecha_inicio": "2025-10-01T00:00:00Z",
   "fecha_renovacion": "2025-11-01T00:00:00Z"
 }
@@ -227,8 +228,8 @@ POST {{baseUrl}}/suscripciones
 Content-Type: {{json}}
 
 {
-  "id_usuario": 1,
-  "id_tipo_usuario": 1,
+  "usuario_id": 1,
+  "tipo_usuario_id": 1,
   "fecha_inicio": "2025-10-01T00:00:00Z",
   "fecha_renovacion": "2025-09-01T00:00:00Z"
 }
