@@ -18,7 +18,6 @@ const obtenerSuscripcionPorId = async (req, res) => {
             });
         }
 
-        // Versión sin includes para evitar errores de columnas
         const suscripcion = await Suscripcion.findByPk(suscripcionId);
 
         if (!suscripcion) {
@@ -27,13 +26,13 @@ const obtenerSuscripcionPorId = async (req, res) => {
             });
         }
 
-        // Buscar información relacionada por separado
+
         const [usuario, tipoUsuario] = await Promise.all([
             Usuario.findByPk(suscripcion.usuario_id),
             TipoUsuario.findByPk(suscripcion.tipo_usuario_id)
         ]);
 
-        // Formatear la respuesta con solo los campos que existen
+
         const suscripcionFormateada = {
             suscripcion_id: suscripcion.suscripcion_id,
             fecha_inicio: suscripcion.fecha_inicio,
@@ -48,7 +47,7 @@ const obtenerSuscripcionPorId = async (req, res) => {
             } : null,
             tipo_usuario: tipoUsuario ? {
                 tipo_usuario_id: tipoUsuario.tipo_usuario_id,
-                nombre_tipo: tipoUsuario.nombre_tipo // Solo usar campos que existen
+                nombre_tipo: tipoUsuario.nombre_tipo 
             } : null
         };
 
@@ -71,7 +70,7 @@ const crearSuscripcion = async(req, res) => {
     try {
         const { usuario_id, tipo_usuario_id, fecha_inicio, fecha_renovacion } = req.body;
 
-        // Validaciones básicas de campos requeridos
+
         if (!usuario_id || !tipo_usuario_id || !fecha_inicio) {
             return res.status(400).json({
                 success: false,

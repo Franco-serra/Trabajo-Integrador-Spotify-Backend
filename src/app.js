@@ -1,37 +1,21 @@
 require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
-const db = require("./config/database"); // Si usas conexión directa MySQL
-const { sequelize } = require("./models"); // Conexión Sequelize
+const db = require("./config/database"); 
+const { sequelize } = require("./models"); 
 const router = require("./routes/index");
-// TODO: Importar las rutas (las agregaremos después)
-// const usuariosRoutes = require('./routes/usuarios');
-// const playlistsRoutes = require('./routes/playlists');
 
 const app = express();
 
-// TODO: Configurar parseo de JSON
 app.use(express.json({ limit: '10mb' }));
 
-// TODO: Configurar CORS
 app.use(cors({
   origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   credentials: true
 }));
 
-// TODO: Configurar rutas
-// app.use('/api/v1/artistas', artistaRoutes);
-// app.use('/api/v1/usuarios', usuariosRoutes);
-// app.use('/api/v1/albumes', albumesRoutes);
-// app.use('/api/v1/canciones', cancionRoutes)
-// app.use('/api/v1/generos', generosRoutes );
-// app.use('/api/v1/playlists', playlistsRoutes);
-// app.use('/api/v1/suscripciones', suscripcionesRoutes);
-// app.use('/api/v1/metodos-pago', metodosPagoRoutes); 
-
-
 app.use('/', router);
-// Ruta de prueba del servidor
+
 app.get("/", (req, res) => {
   res.json({
     message: "🚀 Servidor Spotify funcionando!",
@@ -41,13 +25,13 @@ app.get("/", (req, res) => {
   });
 });
 
-// Ruta de prueba de base de datos con Sequelize
+
 app.get("/test-db", async (req, res) => {
   try {
-    // Probar conexión con Sequelize
+
     await sequelize.authenticate();
     
-    // Probar consulta básica
+
     const result = await sequelize.query("SELECT 1 + 1 AS result");
     
     res.json({

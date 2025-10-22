@@ -73,7 +73,7 @@ const getAllUsers = async (req, res) => {
 
         const { count, rows: usuarios } = await Usuario.findAndCountAll({
             where: {
-                estado: 'activo'  // ← FILTRO PARA SOLO USUARIOS ACTIVOS
+                estado: 'activo'  
             },
             limit,
             offset,

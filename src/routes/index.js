@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-// TODO: Importar todas las rutas
+// Importar todas las rutas
 const artistaRoutes = require('./artistas');
 const usuariosRoutes = require('./usuarios');
 const albumesRoutes = require('./albumes');
@@ -13,7 +13,8 @@ const suscripcionesRoutes = require('./suscripciones');
 const metodosPagoRoutes = require('./metodos-pago');
 const pagosRoutes = require('./pagos');
 
-// TODO: Configurar las rutas con sus prefijos
+
+// Configurar las rutas con sus prefijos
 router.use('/api/v1/artistas', artistaRoutes);
 router.use('/api/v1/usuarios', usuariosRoutes);
 router.use('/api/v1/albumes', albumesRoutes);
@@ -23,6 +24,7 @@ router.use('/api/v1/playlists', playlistsRoutes);
 router.use('/api/v1/suscripciones', suscripcionesRoutes);
 router.use('/api/v1/metodos-pago', metodosPagoRoutes);
 router.use('/api/v1/pagos', pagosRoutes);
+
 
 
 router.get("/", (req, res) => {

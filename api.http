@@ -38,7 +38,7 @@ GET {{baseUrl}}/usuarios/21
 
 
 ### Actualizar usuario (cambio de password → actualiza fecha_ult_mod_password)
-PUT {{baseUrl}}/usuarios/1
+PUT {{baseUrl}}/usuarios/21
 Content-Type: {{json}}
 
 {

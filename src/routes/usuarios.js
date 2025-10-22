@@ -13,6 +13,7 @@ const {
 const router = express.Router();
 
 router.post('/', createUser)
+
 router.get('/', getAllUsers)
 router.get('/password-vencidas', getUserPasswordVencida);
 router.get('/:id', getUserById);
